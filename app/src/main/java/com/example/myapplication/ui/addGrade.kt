@@ -8,20 +8,25 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.db.Student
+import com.example.myapplication.db.StudentDao
 import com.example.myapplication.db.StudentDatabase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.add_grade.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class addGrade : Fragment(R.layout.add_grade) {
 
-    private lateinit var database: StudentDatabase
+    @Inject
+    lateinit var studentDao: StudentDao
+
     private lateinit var studentDatabase: List<Student>
     private var studentId: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        database = StudentDatabase.getDatabase(requireContext())
-        studentDatabase = database.studentDao().getAllStudents()
+        studentDatabase = studentDao.getAllStudents()
 
         studentId = arguments?.getInt("studentId")!! - 1
 
@@ -32,7 +37,7 @@ class addGrade : Fragment(R.layout.add_grade) {
         rbGroup.setOnCheckedChangeListener { radioGroup, i ->
             when(i){
                 R.id.rb1 ->{
-                    database.studentDao().updateStudent(
+                    studentDao.updateStudent(
                         Student(
                             id = studentDatabase[studentId].id,
                             firstName = txtFirstName.text.toString(),
@@ -41,7 +46,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             grade = 1))
                 }
                 R.id.rb2 ->{
-                    database.studentDao().updateStudent(
+                    studentDao.updateStudent(
                         Student(
                             id = studentDatabase[studentId].id,
                             firstName = txtFirstName.text.toString(),
@@ -50,7 +55,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             grade = 2))
                 }
                 R.id.rb3 ->{
-                    database.studentDao().updateStudent(
+                    studentDao.updateStudent(
                         Student(
                             id = studentDatabase[studentId].id,
                             firstName = txtFirstName.text.toString(),
@@ -59,7 +64,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             grade = 3))
                 }
                 R.id.rb4 ->{
-                    database.studentDao().updateStudent(
+                    studentDao.updateStudent(
                         Student(
                             id = studentDatabase[studentId].id,
                             firstName = txtFirstName.text.toString(),
