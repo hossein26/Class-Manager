@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listOfStudents">
+
+    <fragment
+        android:id="@+id/addStudent"
+        android:name="com.example.myapplication.ui.AddStudent"
+        android:label="AddStudent" />
+    <fragment
+        android:id="@+id/listOfStudents"
+        android:name="com.example.myapplication.ui.ListOfStudents"
+        android:label="ListOfStudents" >
+        <action
+            android:id="@+id/action_listOfStudents_to_addStudent"
+            app:destination="@id/addStudent" />
+    </fragment>
+</navigation>
