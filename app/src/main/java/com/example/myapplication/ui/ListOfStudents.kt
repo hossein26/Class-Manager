@@ -5,21 +5,25 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.myapplication.R
 import com.example.myapplication.adapters.StudentsListAdapter
+import com.example.myapplication.db.StudentDatabase
 import kotlinx.android.synthetic.main.list_of_students.*
 
 class ListOfStudents: Fragment(R.layout.list_of_students), View.OnClickListener {
 
+    private lateinit var database: StudentDatabase
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        database = StudentDatabase.getDatabase(requireContext())
+
         fabAdd.setOnClickListener(this)
 
-        val fakeList = mutableListOf<String>("AAA", "BBB", "CCC", "DDD")
-
         rvStudents.apply {
-            adapter = StudentsListAdapter(fakeList)
+            adapter = StudentsListAdapter(database.studentDao().getAllStudents())
             layoutManager = LinearLayoutManager(context)
         }
     }
