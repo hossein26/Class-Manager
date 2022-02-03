@@ -1,9 +1,6 @@
 package com.example.myapplication.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface StudentDao {
@@ -13,6 +10,9 @@ interface StudentDao {
 
     @Delete
     fun deleteStudent(student: Student)
+
+    @Update
+    fun updateStudent(student: Student)
 
     @Query("SELECT * FROM student")
     fun getAllStudents(): List<Student>

@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.db.Student
@@ -22,10 +25,11 @@ class StudentsListAdapter(val listOfStudents: List<Student>): RecyclerView.Adapt
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         val itemList = listOfStudents[position]
         holder.itemView.apply {
-            txtName.text = itemList.name
+            txtName.text = itemList.firstName
             txtGrade.text = itemList.grade.toString()
             setOnClickListener{
-                Toast.makeText(context, "$position Clicked!", Toast.LENGTH_SHORT).show()
+                val bundle = bundleOf("studentId" to itemList.id)
+                it.findNavController().navigate(R.id.action_listOfStudents_to_add_grade, bundle)
             }
         }
     }

@@ -22,10 +22,16 @@ class AddStudent: Fragment(R.layout.add_student), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if (edtName.text.isNotEmpty() && edtGrade.text.isNotEmpty()){
+        if (edtNumber.text.isNotEmpty() && edtFirstName.text.isNotEmpty() && edtLastName.text.isNotEmpty()){
             database.studentDao().addStudent(
-                Student(name = edtName.text.toString(), grade = edtGrade.text.toString().toInt()))
+                Student(number = edtNumber.text.toString().toInt(), firstName = edtFirstName.text.toString(), lastName = edtLastName.text.toString()))
             Toast.makeText(view?.context, "Saved!", Toast.LENGTH_SHORT).show()
+        }else{
+            when{
+                edtNumber.text.isEmpty() -> edtNumber.requestFocus()
+                edtFirstName.text.isEmpty() -> edtFirstName.requestFocus()
+                edtLastName.text.isEmpty() -> edtLastName.requestFocus()
+            }
         }
     }
 }

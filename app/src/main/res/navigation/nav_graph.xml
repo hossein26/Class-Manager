@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/listOfStudents">
 
@@ -15,5 +16,18 @@
         <action
             android:id="@+id/action_listOfStudents_to_addStudent"
             app:destination="@id/addStudent" />
+        <action
+            android:id="@+id/action_listOfStudents_to_add_grade"
+            app:destination="@id/addGrade" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGrade"
+        android:name="com.example.myapplication.ui.addGrade"
+        android:label="add_grade"
+        tools:layout="@layout/add_grade" >
+        <argument
+            android:name="studentId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>
