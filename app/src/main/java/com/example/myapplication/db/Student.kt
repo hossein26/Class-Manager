@@ -5,10 +5,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Student(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+
     val number: Int,
     val firstName: String,
     val lastName: String,
-    var grade: Int? = null
+    var numberOfAsk: Int = 0,
+    var grade: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null
 )

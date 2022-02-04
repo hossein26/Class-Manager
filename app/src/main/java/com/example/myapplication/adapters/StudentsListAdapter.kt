@@ -27,6 +27,7 @@ class StudentsListAdapter(val listOfStudents: List<Student>): RecyclerView.Adapt
         holder.itemView.apply {
             txtName.text = itemList.firstName
             txtGrade.text = itemList.grade.toString()
+            txtNumberOfAsk.text = itemList.numberOfAsk.toString()
             setOnClickListener{
                 val bundle = bundleOf("studentId" to itemList.id)
                 it.findNavController().navigate(R.id.action_listOfStudents_to_add_grade, bundle)

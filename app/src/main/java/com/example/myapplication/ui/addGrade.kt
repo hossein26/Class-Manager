@@ -30,11 +30,15 @@ class addGrade : Fragment(R.layout.add_grade) {
 
         studentId = arguments?.getInt("studentId")!! - 1
 
+        var numberOfAsk = studentDatabase[studentId].numberOfAsk
+
         txtNumber.text = studentDatabase[studentId].number.toString()
         txtFirstName.text = studentDatabase[studentId].firstName
         txtLastName.text = studentDatabase[studentId].lastName
+        txtNumberOfAsk.text = numberOfAsk.toString()
 
         rbGroup.setOnCheckedChangeListener { radioGroup, i ->
+            numberOfAsk++
             when(i){
                 R.id.rb1 ->{
                     studentDao.updateStudent(
@@ -43,6 +47,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             firstName = txtFirstName.text.toString(),
                             lastName = txtLastName.text.toString(),
                             number = txtNumber.text.toString().toInt(),
+                            numberOfAsk = numberOfAsk,
                             grade = 1))
                 }
                 R.id.rb2 ->{
@@ -52,6 +57,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             firstName = txtFirstName.text.toString(),
                             lastName = txtLastName.text.toString(),
                             number = txtNumber.text.toString().toInt(),
+                            numberOfAsk = numberOfAsk++,
                             grade = 2))
                 }
                 R.id.rb3 ->{
@@ -61,6 +67,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             firstName = txtFirstName.text.toString(),
                             lastName = txtLastName.text.toString(),
                             number = txtNumber.text.toString().toInt(),
+                            numberOfAsk = numberOfAsk++,
                             grade = 3))
                 }
                 R.id.rb4 ->{
@@ -70,6 +77,7 @@ class addGrade : Fragment(R.layout.add_grade) {
                             firstName = txtFirstName.text.toString(),
                             lastName = txtLastName.text.toString(),
                             number = txtNumber.text.toString().toInt(),
+                            numberOfAsk = numberOfAsk++,
                             grade = 4))
                 }
 
