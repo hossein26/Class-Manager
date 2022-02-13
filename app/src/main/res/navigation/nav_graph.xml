@@ -8,7 +8,15 @@
     <fragment
         android:id="@+id/addStudent"
         android:name="com.example.myapplication.ui.AddStudent"
-        android:label="AddStudent" />
+        android:label="AddStudent" >
+        <argument
+            android:name="studentId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_addStudent_to_listOfStudents"
+            app:destination="@id/listOfStudents" />
+    </fragment>
     <fragment
         android:id="@+id/listOfStudents"
         android:name="com.example.myapplication.ui.ListOfStudents"
@@ -29,5 +37,11 @@
             android:name="studentId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_addGrade_to_listOfStudents"
+            app:destination="@id/listOfStudents" />
+        <action
+            android:id="@+id/action_addGrade_to_addStudent"
+            app:destination="@id/addStudent" />
     </fragment>
 </navigation>

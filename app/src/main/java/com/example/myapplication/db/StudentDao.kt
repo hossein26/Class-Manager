@@ -1,19 +1,23 @@
 package com.example.myapplication.db
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StudentDao {
 
-    @Insert
-    fun addStudent(student: Student)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addStudent(student: Student)
 
     @Delete
-    fun deleteStudent(student: Student)
+    suspend fun deleteStudent(student: Student)
 
     @Update
-    fun updateStudent(student: Student)
+    suspend fun updateStudent(student: Student)
 
-    @Query("SELECT * FROM student")
-    fun getAllStudents(): List<Student>
+    @Query("SELECT * FROM student ORDER BY `last name` ASC")
+    fun getAllStudents(): Flow<List<Student>>
+
+    @Query("SELECT * FROM student WHERE id = :id")
+    fun getStudent(id: Int): Flow<Student>
 }
