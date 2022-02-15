@@ -20,4 +20,7 @@ interface StudentDao {
 
     @Query("SELECT * FROM student WHERE id = :id")
     fun getStudent(id: Int): Flow<Student>
+
+    @Query("SELECT * FROM student")
+    fun getStudentList(): List<Student>
 }

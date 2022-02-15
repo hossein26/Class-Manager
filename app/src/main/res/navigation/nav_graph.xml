@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/addGrade"
-        android:name="com.example.myapplication.ui.addGrade"
+        android:name="com.example.myapplication.ui.AddGrade"
         android:label="add_grade"
         tools:layout="@layout/add_grade" >
         <argument

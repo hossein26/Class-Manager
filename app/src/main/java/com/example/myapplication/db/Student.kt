@@ -17,5 +17,5 @@ data class Student(
     @ColumnInfo(name = "number of asking")
     var numberOfAsking: Int = 0,
     @ColumnInfo(name = "grade")
-    var grade: Int = 0
+    var grade: Double = 0.0
 )

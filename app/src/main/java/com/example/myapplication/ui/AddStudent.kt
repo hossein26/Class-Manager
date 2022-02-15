@@ -2,6 +2,7 @@ package com.example.myapplication.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -51,12 +52,14 @@ class AddStudent : Fragment(R.layout.add_student) {
     private fun updateStudent() {
         if (isEntryValid()) {
             studentViewModel.updateStudent(
-                studentId, edtNumber.text.toString().toInt(),
+                studentId,
+                edtNumber.text.toString().toInt(),
                 edtFirstName.text.toString(),
                 edtLastName.text.toString()
             )
         }
-        findNavController().navigate(R.id.action_addStudent_to_listOfStudents)
+        val bundle = bundleOf("studentId" to studentId)
+        findNavController().navigate(R.id.action_addStudent_to_listOfStudents, bundle)
     }
 
 
@@ -65,7 +68,7 @@ class AddStudent : Fragment(R.layout.add_student) {
 
         studentId = arguments?.getInt("studentId")!!
 
-        if (id > 0) {
+        if (studentId > 0) {
             studentViewModel.retrieveStudent(studentId)
                 .observe(this.viewLifecycleOwner) { selectedStudent ->
                     student = selectedStudent

@@ -7,13 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class StudentViewModel @Inject constructor(
     private val studentDao: StudentDao
 ) : ViewModel() {
 
     val allStudents: LiveData<List<Student>> = studentDao.getAllStudents().asLiveData()
+
+    val getStudentList: List<Student> = studentDao.getStudentList()
 
     fun addNewStudent(studentNumber: Int, studentFirstName: String, studentLastName: String) {
         val newStudent = getNewStudentEntry(studentNumber, studentFirstName, studentLastName)
@@ -47,7 +48,12 @@ class StudentViewModel @Inject constructor(
         studentLastName: String
     ) {
         val updateStudent =
-            getUpdatedStudentEntry(studentId, studentNumber, studentFirstName, studentLastName)
+            getUpdatedStudentEntry(
+                studentId,
+                studentNumber,
+                studentFirstName,
+                studentLastName
+            )
         updateStudent(updateStudent)
     }
 
@@ -75,8 +81,9 @@ class StudentViewModel @Inject constructor(
         )
     }
 
-    fun askQuestion(student: Student) {
-        val newStudent = student.copy(numberOfAsking = student.numberOfAsking + 1)
+    fun addGrade(student: Student, grade: Double) {
+        val newStudent =
+            student.copy(grade = student.grade + grade, numberOfAsking = student.numberOfAsking + 1)
         updateStudent(newStudent)
     }
 
