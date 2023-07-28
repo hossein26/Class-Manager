@@ -20,7 +20,6 @@ import javax.inject.Inject
 class AddGrade : Fragment(R.layout.add_grade) {
 
     lateinit var student: Student
-    private var studentId: Int = 1
 
     @Inject
     lateinit var studentDao: StudentDao
@@ -31,12 +30,15 @@ class AddGrade : Fragment(R.layout.add_grade) {
         )
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        studentViewModel.currentStudentId = arguments?.getInt("studentId")!!
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        studentId = arguments?.getInt("studentId")!!
-
-        studentViewModel.retrieveStudent(studentId)
+        studentViewModel.retrieveStudent(studentViewModel.currentStudentId)
             .observe(this.viewLifecycleOwner) { selectedStudent ->
                 student = selectedStudent
                 bind(student)
@@ -62,23 +64,19 @@ class AddGrade : Fragment(R.layout.add_grade) {
     }
 
     private fun nextStudent() {
-        studentId += 1
+        studentViewModel.nextQuestion()
         uiUpdate()
     }
 
     private fun pervStudent() {
-        studentId -= 1
+        studentViewModel.pervQuestion()
         uiUpdate()
     }
 
     private fun uiUpdate() {
         rbGroup.clearCheck()
-        val listSize = studentViewModel.getStudentList.size
 
-        if (studentId <= 0) studentId = 1
-        if (studentId > listSize) studentId = 1
-
-        studentViewModel.retrieveStudent(studentId)
+        studentViewModel.retrieveStudent(studentViewModel.currentStudentId)
             .observe(this.viewLifecycleOwner) { selectedStudent ->
                 student = selectedStudent
                 bind(student)

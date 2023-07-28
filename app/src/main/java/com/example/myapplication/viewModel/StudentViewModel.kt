@@ -16,6 +16,21 @@ class StudentViewModel @Inject constructor(
 
     val getStudentList: List<Student> = studentDao.getStudentList()
 
+    var currentStudentId = 0
+
+    fun nextQuestion() {
+        if (currentStudentId >= getStudentList.size) currentStudentId = 0
+        currentStudentId += 1
+    }
+
+    fun pervQuestion() {
+        if (currentStudentId <= 1) {
+            currentStudentId = getStudentList.size
+        }else{
+            currentStudentId -= 1
+        }
+    }
+
     fun addNewStudent(studentNumber: Int, studentFirstName: String, studentLastName: String) {
         val newStudent = getNewStudentEntry(studentNumber, studentFirstName, studentLastName)
         insertStudent(newStudent)
